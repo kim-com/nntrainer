@@ -74,9 +74,9 @@ createRealDataGenerator(const std::string &directory, unsigned int batch_size,
                         unsigned int data_split) {
 
   UserDataType train_data(new nntrainer::util::Cifar100DataLoader(
-    directory + "/alex_trainingSet.dat", batch_size, 1));
-  UserDataType valid_data(new nntrainer::util::Cifar100DataLoader(
-    directory + "/alex_valSet.dat", batch_size, 1));
+    directory + "/alex_trainingSet.dat", 1));
+  UserDataType valid_data(
+    new nntrainer::util::Cifar100DataLoader(directory + "/alex_valSet.dat", 1));
 
   return {std::move(train_data), std::move(valid_data)};
 }

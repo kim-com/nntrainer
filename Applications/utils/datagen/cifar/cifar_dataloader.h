@@ -91,11 +91,10 @@ public:
    * @brief Construct a new Cifar100 Data Loader object
    *
    * @param path path to read from
-   * @param batch_size batch_size of current model
    * @param splits split divisor of the file 1 means using whole data, 2 means
    * half of the data, 10 means 10% of the data
    */
-  Cifar100DataLoader(const std::string &path, int batch_size, int splits);
+  Cifar100DataLoader(const std::string &path, int splits);
 
   /**
    * @brief Destroy the Cifar100 Data Loader object
@@ -113,7 +112,6 @@ private:
   inline static constexpr int SampleSize =
     4 * (3 * 32 * 32 + 2); /**< 1 coarse label, 1 fine label, pixel size */
 
-  unsigned int batch;
   unsigned int current_iteration;
   unsigned int iteration_per_epoch;
 

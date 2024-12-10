@@ -81,8 +81,7 @@ void RandomDataLoader::next(float **input, float **label, bool *last) {
     }
   };
 
-  auto fill_label = [this](float *label, unsigned int batch,
-                           unsigned int length) {
+  auto fill_label = [this](float *label, unsigned int length) {
     unsigned int generated_label = label_dist(rng);
     fillLabel(label, length, generated_label);
     label += length;
@@ -101,17 +100,13 @@ void RandomDataLoader::next(float **input, float **label, bool *last) {
 
   float **cur_label_tensor = label;
   for (unsigned int i = 0; i < output_shapes.size(); ++i) {
-    fill_label(*label, output_shapes.at(i).batch(),
-               output_shapes.at(i).getFeatureLen());
+    fill_label(*label, output_shapes.at(i).getFeatureLen());
     cur_label_tensor++;
   }
 }
 
-Cifar100DataLoader::Cifar100DataLoader(const std::string &path, int batch_size,
-                                       int splits) :
-  batch(batch_size),
-  current_iteration(0),
-  file(path, std::ios::binary | std::ios::ate) {
+Cifar100DataLoader::Cifar100DataLoader(const std::string &path, int splits) :
+  current_iteration(0), file(path, std::ios::binary | std::ios::ate) {
   constexpr char error_msg[] = "failed to create dataloader, reason: ";
 
   NNTR_THROW_IF(!file.good(), std::invalid_argument)
